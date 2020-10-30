@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.15)
 
 project(signal)
 
+find_package(Boost 1.60 REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
         RESULT_VARIABLE result
@@ -28,6 +31,7 @@ add_executable(signal_testing
     signals.h
     signals_testing.cpp)
 
+target_link_libraries(signal_testing ${Boost_LIBRARIES})
 set_property(TARGET signal_testing PROPERTY CXX_STANDARD 17)
 
 target_link_libraries(signal_testing gtest)
